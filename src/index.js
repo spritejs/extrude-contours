@@ -1,3 +1,3 @@
-export default {
-  all: 42,
-};
+import {Stroke} from './stroke';
+
+export default Stroke;

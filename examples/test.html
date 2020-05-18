@@ -5,11 +5,42 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="/js/sprite-template.js"></script>
+  <script src="/js/extrude-contours.js"></script>
 </head>
 <body>
+  <canvas width="512" height="512"></canvas>
   <script>
-    console.log(spriteTemplate);
+    const stroke = new Stroke({
+      lineWidth: 10,
+      lineCap: 'round',
+      // lineJoin: 'round',
+      // miterLimit: 1,
+    });
+
+    const points = [
+      [145, 200],
+      [100, 100],
+      [100, 200],
+      [400, 300],
+    ];
+
+    const contours = stroke.build(points, true);
+    console.log(contours);
+
+    const d = `M${contours.join('L')}`;
+    const ctx = document.querySelector('canvas').getContext('2d');
+    const path = new Path2D(d);
+    ctx.fillStyle = 'rgba(255, 0, 0, 0.2)';
+    ctx.fill(path);
+
+    const d2 = `M${points.join('L')}Z`;
+    const path2 = new Path2D(d2);
+    ctx.strokeStyle = 'green';
+    ctx.lineWidth = 10;
+    // ctx.lineJoin = 'bevel';
+    ctx.miterLimit = 10;
+    ctx.beginPath();
+    // ctx.stroke(path2);
   </script>
 </body>
 </html>
